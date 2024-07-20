@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\MedidaController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +27,11 @@ Route::prefix('')->group( function (){
     Route::resource('/medidas',MedidaController::class);
     Route::resource('/categorias',CategoriaController::class);
     Route::resource('/articulos',ArticuloController::class);
+    Route::get('/inventarios/kardex/{articulo}', [InventarioController::class, 'kardex']);
+    Route::apiResource('/inventarios', InventarioController::class);
+    Route::apiResource('/compras', CompraController::class);
+    Route::apiResource('/ventas', VentaController::class);
+    Route::apiResource('/clientes', ClienteController::class);
+
 
 });

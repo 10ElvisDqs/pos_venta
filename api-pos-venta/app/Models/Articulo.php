@@ -8,13 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Articulo extends Model
 {
     use HasFactory;
-    public function Marca(){
+    
+    public function Marca()
+    {
         return $this->belongsTo(Marca::class);
     }
-    public function Medida(){
+
+    public function Medida()
+    {
         return $this->belongsTo(Medida::class);
     }
-    public function Categoria(){
+
+    public function Categoria()
+    {
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function Inventarios()
+    {
+        return $this->hasMany(Inventario::class);
     }
 }
