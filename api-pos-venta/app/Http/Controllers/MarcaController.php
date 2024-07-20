@@ -14,6 +14,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
+       // return['sol'];
         return Marca::where('estado',1)->get();
     }
 

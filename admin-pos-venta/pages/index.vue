@@ -1,16 +1,18 @@
 <template>
-  <AdminTemplate>
+ <AdminTemplate>
     <div slot="body">
-      <h1>Hola Soy Elvis David</h1>
+      h3
     </div>
-  </AdminTemplate>
-
+ </AdminTemplate>
 </template>
 
 <script>
-import AdminTemplate from '../components/AdminTemplate.vue';
-
 export default {
-  name: 'IndexPage'
-}
+  name: "IndexPage",
+  head() {
+    return {
+      title: "Index",
+    };;
+  },
+};
 </script>
