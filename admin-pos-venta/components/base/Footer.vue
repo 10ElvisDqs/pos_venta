@@ -14,7 +14,7 @@
                     href="#"
                     class="font-weight-bold"
                     target="_blank"
-                    >Sergio Canaviri Felix</a
+                    >estudiantes de software1</a
                   >
                   para una mejor web.
                 </div>

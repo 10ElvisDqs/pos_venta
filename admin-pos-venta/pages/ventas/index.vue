@@ -262,6 +262,7 @@ export default {
       categorias: [],
       carrito: [],
       clientes: [],
+      sucursals: [],
       clienteSeleccionado: '',
       item: {
         articulo: {
@@ -269,6 +270,9 @@ export default {
         },
         cantidad: 0,
         precio: 0,
+      },
+      sucursal:{
+       
       }
     };
   },
@@ -320,6 +324,10 @@ export default {
           this.categorias = v[1];
           this.articulos = v[2];
           this.clientes = v[3];
+          this.sucursals = v[4];
+          if(this.sucursals.length > 0) {
+             this.sucursal = this.sucursals[0];
+            }
         });
       } catch (e) {
         console.log(e);
@@ -373,6 +381,7 @@ export default {
         }
         const res = await this.$api.$post('ventas', operacion);
         console.log(res);
+        await this.ImprimirVenta(res)
         this.$swal
           .fire({
             title: "Venta Guardada !",
@@ -397,6 +406,12 @@ export default {
     },
     Clean() {
       this.carrito = []
+    },
+    async ImprimirVenta(venta){
+      let sucursal = this.sucursal
+      sucursal.venta = venta
+      const res = await this.$printer.$post(sucursal.impresora_url+"venta",sucursal);
+      console.log(res)
     }
   },
   mounted() {

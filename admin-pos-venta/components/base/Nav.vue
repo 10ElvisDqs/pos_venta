@@ -88,12 +88,12 @@
             <ul class="navbar-nav justify-content-end">
               <li class="nav-item d-flex align-items-center">
                 <a
-                  href="../../pages/authentication/signin/illustration.html"
+                  href="javascript:void(0)"
                   class="nav-link text-body font-weight-bold px-0"
-                  target="_blank"
+                   @click="Logout()"
                 >
                   <i class="fa fa-user me-sm-1"></i>
-                  <span class="d-sm-inline d-none">Sign In</span>
+                  <span class="d-sm-inline d-none">Cerrar sesion</span>
                 </a>
               </li>
               <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -264,7 +264,24 @@
             type:String,
             default:''
         },
+    },
+    data(){
+    return {
+      user:{}
     }
+  },
+  methods:{
+    Logout(){
+      localStorage.removeItem('userAuth');
+      this.$router.push('/auth/login')
+    }
+  },
+  mounted(){
+    this.$nextTick(()=>{
+    let user = localStorage.getItem('userAuth')
+    this.user = JSON.parse(user)
+    })
+  }
   }
 
 </script>

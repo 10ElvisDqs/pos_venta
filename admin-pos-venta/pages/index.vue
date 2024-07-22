@@ -1,7 +1,7 @@
 <template>
  <AdminTemplate>
     <div slot="body">
-      h3
+      {{ user }}
     </div>
  </AdminTemplate>
 </template>
@@ -14,5 +14,16 @@ export default {
       title: "Index",
     };;
   },
+  data(){
+    return {
+      user:{}
+    }
+  },
+  mounted(){
+    this.$nextTick(()=>{
+    let user = localStorage.getItem('userAuth')
+    this.user = JSON.parse(user)
+    })
+  }
 };
 </script>

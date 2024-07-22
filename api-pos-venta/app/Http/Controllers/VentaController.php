@@ -62,7 +62,7 @@ class VentaController extends Controller
                 }
             }
         }
-        return $venta;
+        return $this->show($venta);
     }
 
     /**

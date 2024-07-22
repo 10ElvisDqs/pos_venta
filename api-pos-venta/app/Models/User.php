@@ -39,6 +39,9 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-
+       
     ];
+    public function Caja(){
+        return $this->hasOne(Caja::class)->where('estado',1);
+    }
 }

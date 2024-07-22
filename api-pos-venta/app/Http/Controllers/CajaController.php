@@ -14,7 +14,7 @@ class CajaController extends Controller
      */
     public function index()
     {
-        //
+        return Caja::all();
     }
 
     /**
@@ -36,7 +36,9 @@ class CajaController extends Controller
      */
     public function show(Caja $caja)
     {
-        //
+        $caja->user = $caja->User;
+        return $caja;
+
     }
 
     /**

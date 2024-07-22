@@ -14,7 +14,8 @@ class SucursalController extends Controller
      */
     public function index()
     {
-        //
+        return Sucursal::all();
+
     }
 
     /**
@@ -25,7 +26,14 @@ class SucursalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sucursal = new Sucursal();
+        $sucursal->nombre = $request->nombre;
+        $sucursal->direccion = $request->direccion;
+        $sucursal->telefono = $request->telefono;
+        $sucursal->impresora = $request->impresora;
+        $sucursal->impresora_url = $request->impresora_url;
+        $sucursal->save();
+        return $sucursal;
     }
 
     /**
@@ -48,7 +56,13 @@ class SucursalController extends Controller
      */
     public function update(Request $request, Sucursal $sucursal)
     {
-        //
+        $sucursal->nombre = $request->nombre;
+        $sucursal->direccion = $request->direccion;
+        $sucursal->telefono = $request->telefono;
+        $sucursal->impresora = $request->impresora;
+        $sucursal->impresora_url = $request->impresora_url;
+        $sucursal->save();
+        return $sucursal;
     }
 
     /**

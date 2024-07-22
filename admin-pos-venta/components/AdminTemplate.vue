@@ -26,7 +26,14 @@ modulo:{
     type:String,
     default:''
 },
-}
-
-};
+},
+mounted(){
+   let user = localStorage.getItem('userAuth')
+  if(user==null){
+    this.$router.push('/auth/login')
+  }
+    this.$nextTick(()=>{
+    })
+  }
+  }
 </script>
