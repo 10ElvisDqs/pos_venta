@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Venta extends Model
 {
     use HasFactory;
-    public function VentaInventarios()
-    {
+    public function VentaInventarios(){
         return $this->hasMany(VentaInventario::class);
+    }
+    public function CajaVenta(){
+        return $this->hasOne(CajaVenta::class);
     }
 }

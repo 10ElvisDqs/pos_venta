@@ -10,16 +10,17 @@
                 <div class="card h-100 mt-4 mt-md-0">
                   <div class="card-header pb-0 p-3">
                     <div class="d-flex align-items-center">
-                      <h6>Pages</h6>
+                      <h6>Movimientos</h6>
                       <button
                         type="button"
+                        @click="modalMovimiento=true"
                         class="btn btn-icon-only btn-rounded btn-outline-success mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         aria-label="Data is based from sessions and is 100% accurate"
                         data-bs-original-title="Data is based from sessions and is 100% accurate"
                       >
-                        <i class="fas fa-check" aria-hidden="true"></i>
+                        <i class="fas fa-plus" aria-hidden="true"></i>
                       </button>
                     </div>
                   </div>
@@ -33,51 +34,46 @@
                             <th
                               class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                             >
-                              Page
+                              #
                             </th>
                             <th
                               class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                             >
-                              Page Views
+                            Motivo
                             </th>
                             <th
                               class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                             >
-                              Avg. Time
+                         Monto
                             </th>
-                            <th
-                              class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                            >
-                              Bounce Rate
-                            </th>
+
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr v-for="(m,i) in caja.movimientos">
                             <td>
                               <p class="text-sm font-weight-bold mb-0">
-                                1. /bits
+                                {{i+1}}
                               </p>
                             </td>
                             <td>
-                              <p class="text-sm font-weight-bold mb-0">345</p>
+                              <p class="text-sm font-weight-bold mb-0">{{m.motivo}}</p>
                             </td>
                             <td>
-                              <p class="text-sm font-weight-bold mb-0">
-                                00:17:07
+                              <p v-if="m.tipo==1" class="text-sm font-weight-bold mb-0">
+                                {{m.monto}}
+                              </p>
+                              <p v-else class="text-sm text-danger font-weight-bold mb-0">
+                                -{{m.monto}}
                               </p>
                             </td>
-                            <td>
-                              <p class="text-sm font-weight-bold mb-0">
-                                40.91%
-                              </p>
-                            </td>
+
                           </tr>
 
                         </tbody>
                       </table>
                     </div>
-                    {{ caja }}
+
                   </div>
                 </div>
               </div>
@@ -89,7 +85,7 @@
                 class="card-header bg-gradient-dark text-center pt-4 pb-5 position-relative"
               >
                 <div class="z-index-1 position-relative">
-                  <h1 class="text-white mt-2 mb-0"><small></small>0</h1>
+                  <h1 class="text-white mt-2 mb-0"><small></small>{{Number(caja.total).toFixed(2)}}</h1>
                   <h6 class="text-white">Total</h6>
                 </div>
               </div>
@@ -203,10 +199,9 @@
                         </svg>
                       </div>
                       <div class="d-flex flex-column">
-                        <h6 class="mb-1 text-dark text-sm">Devices</h6>
+                        <h6 class="mb-1 text-dark text-sm">Ingresos</h6>
                         <span class="text-xs"
-                          >250 in stock,
-                          <span class="font-weight-bold">346+ sold</span></span
+                          >{{Number(caja.ingresos).toFixed(2)}}</span
                         >
                       </div>
                     </div>
@@ -268,10 +263,9 @@
                         </svg>
                       </div>
                       <div class="d-flex flex-column">
-                        <h6 class="mb-1 text-dark text-sm">Tickets</h6>
+                        <h6 class="mb-1 text-dark text-sm">Salidas</h6>
                         <span class="text-xs"
-                          >123 closed,
-                          <span class="font-weight-bold">15 open</span></span
+                          >{{Number(caja.salidas).toFixed(2)}}</span
                         >
                       </div>
                     </div>
@@ -331,10 +325,10 @@
                         </svg>
                       </div>
                       <div class="d-flex flex-column">
-                        <h6 class="mb-1 text-dark text-sm">Error logs</h6>
+                        <h6 class="mb-1 text-dark text-sm">Ventas</h6>
                         <span class="text-xs"
-                          >1 is active,
-                          <span class="font-weight-bold">40 closed</span></span
+                          >{{Number(caja.ventas).toFixed(2)}}
+                        </span
                         >
                       </div>
                     </div>
@@ -396,8 +390,8 @@
                         </svg>
                       </div>
                       <div class="d-flex flex-column">
-                        <h6 class="mb-1 text-dark text-sm">Happy users</h6>
-                        <span class="text-xs font-weight-bold">+ 430</span>
+                        <h6 class="mb-1 text-dark text-sm">Compras</h6>
+                        <span class="text-xs font-weight-bold">{{Number(caja.compras).toFixed(2)}}</span>
                       </div>
                     </div>
                     <div class="d-flex">
@@ -414,14 +408,14 @@
                   class="btn bg-gradient-dark w-100 mt-4 mb-0"
                   @click="Save()"
                 >
-                  <i class="fas fa-save mx-2"></i> GUARDAR
+                  <i class="fas fa-save mx-2"></i> FINALIZAR / APERTURAR CAJA
                 </a>
               </div>
             </div>
           </div>
           <div
             class="modal fade"
-            :class="modalEdit ? 'showModal' : ''"
+            :class="modalMovimiento ? 'showModal' : ''"
             id="AjusteModal"
             tabindex="-1"
             role="dialog"
@@ -432,27 +426,59 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">
-                    Editar artículo
+                    Nuevo Movimiento
                   </h5>
                   <button
                     type="button"
                     class="btn-close text-dark"
-                    @click="modalEdit = false"
+                    @click="modalMovimiento = false"
                     data-bs-dismiss="modal"
                     aria-label="Close"
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="">Motivo</label>
+                          <input type="text" v-model="movimiento.motivo" name="" class="form-control" id="">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="">Monto</label>
+                          <input type="text" v-model="movimiento.monto" name="" class="form-control" id="">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="">Movimiento</label>
+                          <select name="" v-model="movimiento.tipo"  class="form-control"  id="">
+                            <option value="1">INGRESO</option>
+                            <option value="2">SALIDA</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                   <button
                     type="button"
-                    @click="modalEdit = false"
-                    class="btn bg-gradient-secondary w-100"
+                    @click="modalMovimiento = false"
+                    class="btn bg-gradient-secondary"
                     data-bs-dismiss="modal"
                   >
                     Cerrar
+                  </button>
+                  <button
+                    type="button"
+                    @click="AddMovimiento()"
+                    class="btn btn-primary"
+
+                  >
+                    Guardar
                   </button>
                 </div>
               </div>
@@ -477,9 +503,19 @@ export default {
       modulo: "Caja",
       page: "Caja",
       load: false,
-      modalEdit: false,
+      modalMovimiento: false,
       user:{},
-      caja:{}
+      caja:{
+        salidas:0,
+        ingresos:0,
+        total:0,
+        movimientos:[]
+      },
+      movimiento:{
+        motivo:'',
+        monto:0,
+        tipo:1
+      }
     };
   },
   computed: {},
@@ -488,13 +524,42 @@ export default {
       const res = await this.$api.$get(path);
       return res;
     },
+    async AddMovimiento(){
+      this.load=true
+      this.modalMovimiento=false
+      this.movimiento.caja_id = this.caja.id
+     await this.$api.$post('cajaMovimientos',this.movimiento);
+     await Promise.all([this.GET_DATA('cajas/'+this.user.caja_id)]).then((v)=>{
+        this.caja = v[0]
+      })
+      this.load=false
+    },
+    async Save(){
+      this.load=true
+      try{
+
+        let id = this.caja.id
+       let res = await this.$api.$put('cajas/'+id,{id:id});
+        let user = this.user
+        user.caja_id = res.id
+        localStorage.setItem('userAuth',JSON.stringify(user))
+        this.user= user
+        await Promise.all([this.GET_DATA('cajas/'+this.user.caja_id)]).then((v)=>{
+        this.caja = v[0]
+      })
+      }catch(e){
+
+      }finally{
+        this.load=false
+      }
+    }
   },
   mounted() {
     let user = localStorage.getItem('userAuth')
       this.user = JSON.parse(user)
     this.$nextTick(async () => {
     this.load=true
-      await Promise.all([this.GET_DATA('cajas/'+this.user.cajas_id)]).then((v)=>{
+      await Promise.all([this.GET_DATA('cajas/'+this.user.caja_id)]).then((v)=>{
         this.caja = v[0]
       })
       this.load=false

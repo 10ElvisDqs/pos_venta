@@ -14,7 +14,7 @@ class CajaMovimientoController extends Controller
      */
     public function index()
     {
-        //
+        return CajaMovimiento::all();
     }
 
     /**
@@ -25,7 +25,13 @@ class CajaMovimientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cajaMovimiento = new CajaMovimiento();
+        $cajaMovimiento->motivo = $request->motivo;
+        $cajaMovimiento->monto = $request->monto;
+        $cajaMovimiento->tipo = $request->tipo;
+        $cajaMovimiento->caja_id = $request->caja_id;
+        $cajaMovimiento->save();
+        return $cajaMovimiento;
     }
 
     /**

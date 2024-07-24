@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venta;
+use App\Models\CajaVenta;
 use App\Models\VentaInventario;
 use App\Models\Inventario;
+use App\Models\Sucursal;
 use Illuminate\Http\Request;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class VentaController extends Controller
 {
     /**
@@ -19,6 +21,7 @@ class VentaController extends Controller
         $venta = Venta::where('estado',1)->get();
         $list = [];
         foreach($venta as $m){
+
             $list[] = $this->show($m);
         }
         return $list;
@@ -62,6 +65,13 @@ class VentaController extends Controller
                 }
             }
         }
+        if(isset($request->caja_id)){
+            $cajaVenta = new CajaVenta();
+            $cajaVenta->caja_id = $request->caja_id;
+            $cajaVenta->venta_id = $venta->id;
+            $cajaVenta->monto = $venta->total;
+            $cajaVenta->save();
+        }
         return $this->show($venta);
     }
 
@@ -79,7 +89,16 @@ class VentaController extends Controller
             }]);
         }])->get();
         $venta->fecha = $venta->created_at->format('Y-m-d');
+        $venta->url_pdf = url('api/reportes/ventas/'.$venta->id);
         return $venta;
+    }
+    public function pdf(Venta $venta)
+    {
+        $sucursal = Sucursal::all()->first();
+        $venta = $this->show($venta);
+        $venta->sucursal = $sucursal;
+        $pdf = PDF::loadView('reports.venta', ["venta"=>$venta]);
+        return $pdf->stream();
     }
 
     /**
@@ -104,5 +123,9 @@ class VentaController extends Controller
     {
         $venta->estado =0;
         $venta->save();
+        $venta->caja_venta = $venta->CajaVenta;
+        $venta->caja_venta->estado = 0;
+        $venta->caja_venta->save();
+        
     }
 }

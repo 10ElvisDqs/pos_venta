@@ -14,7 +14,7 @@ class PrinterController extends Controller
 
 
 
-        $connector = new WindowsPrintConnector("$request->impresora");
+        $connector = new WindowsPrintConnector($request->impresora);
         $printer = new Printer($connector);
         $printer -> text($request->impresora." Impresora conectada!\n");
         $printer -> cut();

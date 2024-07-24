@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'admin-pos-venta',
+    title: 'POS',
     htmlAttrs: {
       lang: 'en'
     },
@@ -18,15 +18,17 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' },
       { rel: 'stylesheet', href: '/assets/css/soft-ui-dashboard.min.css' },
     ],
-    script:[
-      { src:"https://kit.fontawesome.com/42d5adcbca.js"},
-      { src:"../assets/js/core/popper.min.js"},
-      { src:"../assets/js/core/bootstrap.min.js"},
-      { src:"../assets/js/plugins/perfect-scrollbar.min.js"},
-      { src:"../assets/js/plugins/smooth-scrollbar.min.js"},
-      { src:"../assets/js/plugins/dragula/dragula.min.js"},
-      { src:"../assets/js/plugins/jkanban/jkanban.js"},
-      { src:"../assets/js/plugins/chartjs.min.js"},
+    script: [
+      { src: "https://kit.fontawesome.com/42d5adcbca.js" },
+      { src: "/assets/js/core/popper.min.js" },
+      { src: "/assets/js/core/bootstrap.min.js" },
+      { src: "/assets/js/plugins/perfect-scrollbar.min.js" },
+      { src: "/assets/js/plugins/smooth-scrollbar.min.js" },
+
+      { src: "/assets/js/plugins/dropzone.min.js" },
+      { src: "/assets/js/plugins/dragula/dragula.min.js" },
+      { src: "/assets/js/plugins/jkanban/jkanban.js" },
+      { src: "/assets/js/plugins/chartjs.min.js" },
     ]
   },
 
@@ -37,10 +39,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/api',
-    '~/plugins/printer'
-
+    '~/plugins/printer',
+    '~/plugins/socket.io',
   ],
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -49,9 +50,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-
   modules: ['@nuxtjs/axios','vue-sweetalert2/nuxt'],
-  
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

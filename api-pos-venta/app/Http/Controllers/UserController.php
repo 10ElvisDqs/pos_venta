@@ -45,9 +45,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-      $user->caja = $user->Caja;
 
-      return $user;
+        $user->caja = $user->Caja;
+
+
+
+            return $user;
+
     }
 
     /**
@@ -88,18 +92,19 @@ class UserController extends Controller
     {
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password],false)){
             $user = Auth::user();
-            $Caja = $user->Caja;
-            if (empty($Caja)) {
+            $caja = $user->Caja;
+            if(empty($caja)){
 
-             $Caja_nueva = new Caja();
-             $Caja_nueva->user_id = $user-> id;
-             $Caja_nueva->estado = 1;
-             $Caja_nueva->save();
-             $user->caja_id = $Caja_nueva->id;
+                $caja_nueva = new Caja();
+                $caja_nueva->user_id = $user->id;
+                $caja_nueva->estado = 1;
+                $caja_nueva->save();
+                $user->caja_id = $caja_nueva->id;
 
-             return $user;
+
+                return $user;
             }
-            $user->caja = $Caja;
+            $user->caja_id = $caja->id;
             return $user;
         }else{
             return response()->json(['errors'=>['login'=>['Los datos no son validos']]]);

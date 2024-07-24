@@ -7,10 +7,13 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-start">
-                  <h3 class="font-weight-bolder text-info text-gradient">
-                   Bienvenido
-                  </h3>
-                  <p class="mb-0">Ingresa tu email y tu password para iniciar.</p>
+                  <template>
+  <h3 class="" style="color: orange;">
+    Bienvenido a STHIL
+  </h3>
+</template>
+
+                  <p class="mb-0">Ingresa tu email y tu contraseña para iniciar.</p>
                 </div>
                 <div class="card-body">
                   <div role="form" class="text-start">
@@ -24,7 +27,7 @@
                         aria-label="Email"
                       />
                     </div>
-                    <label>Password</label>
+                    <label>contraseña</label>
                     <div class="mb-3">
                       <input
                         type="password"
@@ -36,13 +39,16 @@ v-model="model.password"
                     </div>
 
                     <div class="text-center">
-                      <button
-                        type="button"
-                        class="btn bg-gradient-info w-100 mt-4 mb-0"
-                      @click="Login()"
-                      >
-                        Ingresar
-                      </button>
+                      <template>
+  <button
+    type="button"
+    class="btn w-100 mt-4 mb-0"
+    @click="Login"
+    style="background: linear-gradient(45deg, orange, darkorange); color: white;"
+  >
+    Ingresar
+  </button>
+</template>
                     </div>
                   </div>
                 </div>
@@ -56,7 +62,7 @@ v-model="model.password"
                 <div
                   class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
                   style="
-                    background-image: url('/assets/img/curved-images/curved9.jpg');
+                    background-image: url('/assets/img/curved-images/login.JPG');
                   "
                 ></div>
               </div>

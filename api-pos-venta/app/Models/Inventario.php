@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inventario extends Model
 {
     use HasFactory;
-    public function Articulo()
-    {
+    public function Articulo(){
         return $this->belongsTo(Articulo::class);
     }
 }
