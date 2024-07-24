@@ -4,7 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<<<<<<< HEAD
         <title>Laravel</title>
+=======
+        <title>API Elvis</title>
+>>>>>>> 41eb5a0ed8c900589e993719c06cf17f54cbdfaf
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">

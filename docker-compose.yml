@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  laravel:
+    build:
+      context: ./api-pos-venta
+    container_name: laravel
+    ports:
+      - "8000:80"
+    volumes:
+      - ./api-pos-venta:/var/www/html
+      - laravel_data:/var/www/html/storage
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY=base64:HDVoeNxdWJu30xrIL9VS3AbAGg4ZjB2p+mWZuuaqWOQ=
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=pos_venta
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+    depends_on:
+      - mysql
+
+  nuxt:
+    build:
+      context: ./admin-pos-venta
+    container_name: nuxt
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./admin-pos-venta:/usr/src/app
+      - nuxt_data:/usr/src/app/.nuxt
+    command: npm run dev
+    depends_on:
+      - laravel
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: pos_venta
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  laravel_data:
+  nuxt_data:
+  mysql_data:

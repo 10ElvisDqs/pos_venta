@@ -90,6 +90,7 @@ class UserController extends Controller
     }
     public function login(LoginFormRequest $request)
     {
+
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password],false)){
             $user = Auth::user();
             $caja = $user->Caja;

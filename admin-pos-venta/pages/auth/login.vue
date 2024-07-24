@@ -96,27 +96,28 @@ v-model="model.password"
             let user = res
             if(user.hasOwnProperty('errors')){
               this.$swal
-        .fire({
-          title: "Credenciales incorrectas",
-          showDenyButton: false,
-          showCancelButton: false,
-          confirmButtonText: "Ok"
+              .fire({
+                title: "Credenciales incorrectas",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: "Ok"
 
-        })
+              })
             }else{
               localStorage.setItem('userAuth',JSON.stringify(user))
               this.$router.push('/')
+
             }
           }catch(e){
           console.log(e)
           this.$swal
-        .fire({
-          title: "No se puedo iniciar sesion",
-          showDenyButton: false,
-          showCancelButton: false,
-          confirmButtonText: "Ok"
+          .fire({
+            title: "No se puedo iniciar sesion",
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: "Ok"
 
-        })
+          })
 
         }
       }
