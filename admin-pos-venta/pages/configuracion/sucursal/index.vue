@@ -46,26 +46,7 @@
                         id=""
                       />
                     </div>
-                    <div class="form-group col-12">
-                      <label for="">Impresora</label>
-                      <input
-                        type="text"
-                        name=""
-                        v-model="model.impresora"
-                        class="form-control"
-                        id=""
-                      />
-                    </div>
-                    <div class="form-group col-12">
-                      <label for="">Impresora URL</label>
-                      <input
-                        type="text"
-                        name=""
-                        v-model="model.impresora_url"
-                        class="form-control"
-                        id=""
-                      />
-                    </div>
+
                   </div>
                 </CrudUpdate>
                 <CrudCreate v-else :model="model" :apiUrl="apiUrl">

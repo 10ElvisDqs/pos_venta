@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loader :load="load"></Loader>
+    <JcLoader :load="load"></JcLoader>
     <AdminTemplate :page="page" :modulo="modulo">
       <div slot="body">
         <div class="row">
@@ -24,49 +24,50 @@
                 </div>
               </div>
               <div class="card-body">
+       
                 <div class="row">
                   <div class="col-12 col-lg-5 mx-auto">
                     <h3 class="mt-lg-0 mt-4">{{model.nombre}}</h3>
                     <div class="rating">
                       <i class="fas fa-barcode" aria-hidden="true"></i>
-                      {{model.barra}}|
+                      {{model.barra}} |
                       <i class="fas fa-boxes" aria-hidden="true"></i>
-                      {{ model.categoria.nombre }} |
+                      {{model.categoria.nombre}} |
                       <i class="fas fa-bookmark" aria-hidden="true"></i>
-                      {{ model.marca.nombre }}
+                      {{model.marca.nombre}}
                     </div>
                     <br />
                     <div class="d-flex justify-content-between">
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Precio Compra</h6>
-                        <h5>{{ Number(model.compra).toFixed(2) }}</h5>
+                        <h5>{{Number(model.compra).toFixed(2)}}</h5>
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Precio Venta</h6>
-                        <h5>{{ Number(model.venta).toFixed(2) }}</h5>
+                        <h5>{{Number(model.venta).toFixed(2)}}</h5>
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Ganancia Unitaria</h6>
-                        <h5>{{ Number(model.venta - model.compra).toFixed(2) }}</h5>
+                        <h5>{{Number(model.venta - model.compra).toFixed(2)}}</h5>
                       </div>
                     </div>
-                    <span class="badge " :class="[model.stock<= model.stock_minimo?'badge-danger': 'badge-success']"
-                      ><i class="fas fa-archive" aria-hidden="true"></i> {{ model.stock }} en
+                    <span class="badge " :class="[model.stock<=model.stock_minimo?'badge-danger':'badge-success']"
+                      ><i class="fas fa-archive" aria-hidden="true"></i> {{model.stock}} en
                       Stock</span
                     >
                     <br />
                     <div class="d-flex justify-content-between">
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Inversion</h6>
-                        <h5>{{ Number(model.inversion).toFixed(2) }}</h5>
+                        <h5>{{Number(model.inversion).toFixed(2)}}</h5>
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Valorizado</h6>
-                        <h5>{{ Number(model.valorizado).toFixed(2) }}</h5>
+                        <h5>{{Number(model.valorizado).toFixed(2)}}</h5>
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Ganancia</h6>
-                        <h5>{{ Number(model.ganancia).toFixed(2) }}</h5>
+                        <h5>{{Number(model.ganancia).toFixed(2)}}</h5>
                       </div>
                     </div>
                     <div class="row mt-4">
@@ -182,9 +183,9 @@
                                   class="btn bg-gradient-primary"
                                   data-bs-dismiss="modal"
                                   @click="Save()"
-                                  >
+                                >
                                   Continuar
-                                  </button>
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -227,19 +228,19 @@
                           <tr v-for="m in model.inventarios">
                             <td>
                               <div class="d-flex px-1 py-1">
-                                <div class="text-xxs">{{ m.motivo }}</div>
+                                <div class="text-xxs">{{m.motivo}}</div>
                                 <div
                                   class="d-flex flex-column justify-content-center"
                                 >
-                                  <!-- <h6 class="mb-0 text-xxs">, -</h6> -->
+                                  <!-- <h6 class="mb-0 text-xxs">, {{}}</h6> -->
                                 </div>
                               </div>
                             </td>
                             <td>
-                              <h6><span class="badge text-xxs" :class="[m.tipo==2? 'badge-danger': 'badge-success']">{{ m.cantidad }}{{ model.medida.codigo }}</span></h6>
+                              <h6><span class="badge text-xxs" :class="[m.tipo ==2?'badge-danger':'badge-success']">{{m.cantidad}} {{model.medida.codigo}}</span></h6>
                             </td>
-                            <td class="text-xxs">{{ Number(m.compra).toFixed(2) }}</td>
-                            <td class="align-middle text-sm text-xxs">{{ Number(m.venta).toFixed(2) }}</td>
+                            <td class="text-xxs">{{Number(m.compra).toFixed(2)}}</td>
+                            <td class="align-middle text-sm text-xxs">{{Number(m.venta).toFixed(2)}}</td>
                             <td class="align-middle text-center text-xxs">
                               <a
                                 href="javascript:void(0);"
@@ -283,33 +284,32 @@ export default {
       apiUrl: "inventarios",
       page: "Inventario",
       modulo: "General",
-      model:{
-      nombre:'',
-      barra:'',
-      compra:0,
-      venta:0,
-      stock_minimo:0,
-      medida_id:'',
-      marca_id:'',
-      categoria_id:'',
-      marca:{
+      model: {
+        nombre: "",
+        barra: "",
+        stock_minimo:0,
+        compra:0,
+        venta:0,
+        marca_id:'',
+        medida_id:'',
+        categoria_id:'',
+        marca:{
           nombre:''
-      },
-      categoria:{
+        },
+        categoria:{
           nombre:''
-      },
-      medida:{
+        },
+        medida:{
           nombre:'',
-          codigo:''
+          codigo:'',
+        },
+        inventarios:[]
       },
-      inventarios:[]
-    },
-    inventario:{
-      tipo:1,
-      cantidad:1,
-      motivo:'',
-    },
-
+      inventario:{
+        tipo:1,
+        cantidad:1,
+        motivo:'',
+      },
       url_editar: "/inventario/kardex/",
     };
   },
@@ -319,44 +319,43 @@ export default {
       return res;
     },
     async Save() {
-    this.load = true;
-    let self = this
-    try {
-      this.inventario.articulo_id = this.model.id
-      this.inventario.compra = this.model.compra
-      this.inventario.venta = this.model.venta
-      const res = await this.$api.$post('inventarios', this.inventario);
-      console.log(res);
-      this.$swal
-        .fire({
-          title: "Movimiento Guardado !",
-          showDenyButton: false,
-          showCancelButton: false,
-          confirmButtonText: "Ok",
-        })
-        .then(async (result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            await Promise.all([self.GET_DATA('inventarios/kardex/'+self.$route.params.id)]).then((v) => {
-                    self.model = v[0];
-            });
-          }
-        });
-    } catch (e) {
-      console.log(e);
-    } finally {
-      this.load = false;
-    }
-  },
-  
+      this.load = true;
+      let self = this
+      try {
+        this.inventario.articulo_id = this.model.id
+        this.inventario.compra = this.model.compra
+        this.inventario.venta = this.model.venta
+        const res = await this.$api.$post('inventarios', this.inventario);
+        console.log(res);
+        this.$swal
+          .fire({
+            title: "Movimiento Guardado !",
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: "Ok",
+          })
+          .then(async (result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              await Promise.all([self.GET_DATA('inventarios/kardex/'+self.$route.params.id)]).then((v) => {
+                      self.model = v[0];
+              });
+            }
+          });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.load = false;
+      }
+    },
     async EliminarItem(id) {
       this.load = true;
       try {
-        const res = await this.$api.$delete('inventarios/' + id);
+        const res = await this.$api.$delete("inventarios/" + id);
         console.log(res);
         await Promise.all([this.GET_DATA('inventarios/kardex/'+this.$route.params.id)]).then((v) => {
           this.model = v[0];
-        })
+        });
       } catch (e) {
         console.log(e);
       } finally {
@@ -367,7 +366,7 @@ export default {
       let self = this;
       this.$swal
         .fire({
-          title: "Deseas Eliminar el Moviemiento?",
+          title: "Deseas Eliminar el movimiento?",
           showDenyButton: false,
           showCancelButton: true,
           confirmButtonText: "Eliminar",

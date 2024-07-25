@@ -8,8 +8,10 @@ class LoginFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -17,21 +19,20 @@ class LoginFormRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, mixed>
      */
     public function rules()
     {
         return [
             'email'=>'required',
-            'password'=> 'required',
+            'password'=>'required',
         ];
     }
     public function messages()
     {
         return [
-            
-            'email.required'=>'el correo es obligatorio',
-            'password.required'=> 'la contraseña es obligatorio',
+            'email.required'=>'El correo es obligatorio',
+            'password.required'=>'La contraseña es obligatorio',
         ];
     }
 }

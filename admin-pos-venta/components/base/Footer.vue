@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <footer class="footer pt-3">
+   <footer class="footer pt-3">
           <div class="container-fluid">
             <div class="row align-items-center justify-content-lg-between">
               <div class="col-lg-6 mb-lg-0 mb-4">
@@ -8,15 +7,15 @@
                   class="copyright text-center text-sm text-muted text-lg-start"
                 >
                   ©
-                  2024
-                  , creado  <i class="fa fa-heart"></i> por
+                 2024
+                  , sistema hecho para
                   <a
-                    href="#"
+                    href="https://www.facebook.com/StihlBolivia/"
                     class="font-weight-bold"
                     target="_blank"
-                    >estudiantes de software1</a
+                    >Sthil</a
                   >
-                  para una mejor web.
+                  sistema web.
                 </div>
               </div>
               <div class="col-lg-6">
@@ -25,5 +24,4 @@
             </div>
           </div>
         </footer>
-  </div>
 </template>

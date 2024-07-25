@@ -1,16 +1,5 @@
 <?php
 
-use App\Http\Controllers\ArticuloController;
-use App\Http\Controllers\CajaController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\MarcaController;
-use App\Http\Controllers\MedidaController;
-use App\Http\Controllers\CompraController;
-use App\Http\Controllers\InventarioController;
-use App\Http\Controllers\SucursalController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\VentaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,21 +13,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('')->group( function (){
-
-    Route::post('/login', [UserController::class, 'login']);
-    Route::apiResource('/users', UserController::class);
-    Route::apiResource('/cajas', CajaController::class);
-    Route::resource('/marcas',MarcaController::class);
-    Route::resource('/medidas',MedidaController::class);
-    Route::resource('/categorias',CategoriaController::class);
-    Route::resource('/articulos',ArticuloController::class);
-    Route::get('/inventarios/kardex/{articulo}', [InventarioController::class, 'kardex']);
-    Route::apiResource('/inventarios', InventarioController::class);
-    Route::apiResource('/compras', CompraController::class);
-    Route::apiResource('/ventas', VentaController::class);
-    Route::apiResource('/clientes', ClienteController::class);
-    Route::apiResource('/sucursals', SucursalController::class);
+Route::apiResource('/cajas', 'CajaController');
+Route::post('/articuloImages/articulo/{articulo}', 'ArticuloImageController@store');
+Route::post('/articuloImages/articulo/delete/{articuloImage}', 'ArticuloImageController@destroy');
+Route::get('/articuloImages/articulo/{articulo}', 'ArticuloImageController@show');
+Route::get('/dashboard', 'DashboardController@info');
+Route::get('/reportes/ventas/{venta}', 'VentaController@pdf');
+Route::apiResource('/cajaMovimientos', 'CajaMovimientoController');
 
 
-});
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

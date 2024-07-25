@@ -11,4 +11,13 @@ class Caja extends Model
     public function User(){
         return $this->belongsTo(User::class);
     }
+    public function CajaVentas(){
+        return $this->hasMany(CajaVenta::class)->where('estado',1);
+    }
+    public function CajaCompras(){
+        return $this->hasMany(CajaCompra::class);
+    }
+    public function CajaMovimientos(){
+        return $this->hasMany(CajaMovimiento::class);
+    }
 }

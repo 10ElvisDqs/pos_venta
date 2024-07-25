@@ -1,16 +1,30 @@
 <div align="center">
+  
+# Proyecto Pos-Venta para empresa STHIL
+<img width="15%" src="https://github.com/user-attachments/assets/494a2b0a-acd2-4a47-b779-45c11d3e133c">
 
 ### Front-End Vue.js (Nuxt.js)
 <p>
   <code><img width="15%" src="https://www.vectorlogo.zone/logos/nuxtjs/nuxtjs-ar21.svg"></code>
   <code><img width="15%" src="https://www.vectorlogo.zone/logos/vuejs/vuejs-ar21.svg"></code>
+  <code><img width="7%" src="https://github.com/user-attachments/assets/dd07c1a7-302b-484f-a212-950193fc97bc"></code>
+
 </p>
 
 ### Back-End Laravel
 <code><img width="15%" src="https://www.vectorlogo.zone/logos/laravel/laravel-ar21.svg"></code>
+<code><img width="10%" src="https://www.vectorlogo.zone/logos/php/php-icon.svg"></code>
 
 ### Gestor de Base de Datos
 <code><img width="15%" src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21.svg"></code>
+
+### Tecnologias
+<code><img width="10%" src="https://www.vectorlogo.zone/logos/docker/docker-official.svg"></code>
+<code><img width="15%" src="https://www.vectorlogo.zone/logos/nginx/nginx-ar21.svg"></code>
+<code><img width="12%" src="https://github.com/user-attachments/assets/612c4826-b370-4be0-b82a-3694718166fe"></code>
+<code><img width="15%" src="https://www.vectorlogo.zone/logos/visualstudio_code/visualstudio_code-ar21.svg"></code>
+<code><img width="15%" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg"></code>
+<code><img width="15%" src="https://www.vectorlogo.zone/logos/github/github-ar21.svg"></code>
 
 </div>
 
@@ -21,93 +35,127 @@
 - **admin-pos-venta**: Frontend con Vue.js
 - **api-pos-venta**: Backend con Laravel
 
-## Requisitos Previos
+# Proyecto Full-Stack con Docker
 
-- **Node.js** y **npm**
-- **Composer**
-- **PHP**
-- **Laravel**
+## Descripción
 
-## Instrucciones
+Este proyecto es una aplicación full-stack que consta de un backend en Laravel y un frontend en Node.js. Ambos servicios se ejecutan en contenedores Docker.
 
-## Clonar el Repositorio
+## Requisitos
 
-```bash
-git clone https://github.com/10ElvisDqs/pos_venta.git
-```
+Antes de empezar, asegúrate de tener instalados los siguientes programas:
 
-### Backend (Laravel - api-pos-venta)
+- [Docker](https://www.docker.com/get-started) (para la virtualización de contenedores)
+- [Docker Compose](https://docs.docker.com/compose/install/) (para manejar múltiples contenedores)
 
-1. Navega al directorio:
+## Configuración del Proyecto
 
-    ```bash
-    cd api-pos-venta
-    ```
+Para correr este proyecto usando Docker, sigue estos pasos:
 
-2. Instalar dependencias:
+
+1. **Clona el repositorio a tu máquina local:**
 
     ```bash
-    composer install
+    git clone https://github.com/10ElvisDqs/pos_venta.git
+    cd pos-venta
     ```
 
-3. Configurar archivo de entorno:
+2.  **Configuración con Docker Compose:**
 
     ```bash
-    cp .env.example .env
-    php artisan key:generate
+     version: '3.8'
+
+    services:
+      laravel:
+        build:
+          context: ./api-pos-venta
+        container_name: laravel
+        ports:
+          - "8000:80"
+        volumes:
+          - ./api-pos-venta:/var/www/html
+          - laravel_data:/var/www/html/storage
+        environment:
+          - APP_ENV=local
+          - APP_DEBUG=true
+          - APP_KEY=base64:HDVoeNxdWJu30xrIL9VS3AbAGg4ZjB2p+mWZuuaqWOQ=
+          - DB_CONNECTION=mysql
+          - DB_HOST=mysql
+          - DB_PORT=3306
+          - DB_DATABASE=pos_venta
+          - DB_USERNAME=root
+          - DB_PASSWORD=secret
+        depends_on:
+          - mysql
+    
+      nuxt:
+        build:
+          context: ./admin-pos-venta
+        container_name: nuxt
+        ports:
+          - "3000:3000"
+        volumes:
+          - ./admin-pos-venta:/usr/src/app
+          - nuxt_data:/usr/src/app/.nuxt
+        command: npm run dev
+        depends_on:
+          - laravel
+    
+      mysql:
+        image: mysql:8.0
+        container_name: mysql
+        ports:
+          - "3306:3306"
+        environment:
+          MYSQL_DATABASE: pos_venta
+          MYSQL_ROOT_PASSWORD: secret
+        volumes:
+          - mysql_data:/var/lib/mysql
+    
+    volumes:
+      laravel_data:
+      nuxt_data:
+      mysql_data:
+
     ```
 
-4. Edita las variables de entorno en `.env`:
-
-    - `DB_DATABASE`
-    - `DB_USERNAME`
-    - `DB_PASSWORD`
-
-5. Migrar la base de datos:
+3. **Construir y Ejecutar Contenedores:**
 
     ```bash
-    php artisan migrate
+    docker-compose up --build
     ```
 
-6. Ejecutar el servidor:
+4. **Acceder a la Aplicación:**
 
-    ```bash
-    php artisan serve
-    ```
+   - **Backend (Laravel):** Una vez que el contenedor esté corriendo, puedes acceder al backend en tu navegador en:
+      ```bash
+      http://localhost:8080
+      ```
 
-   - El servidor estará en `http://localhost:8000`.
+   - **Frontend (Node.js):** Puedes acceder al frontend en tu navegador en:
+      ```bash
+      http://localhost:3000
+      ```
 
-### Frontend (Vue.js - admin-pos-venta)
+##**Acceder a la Base de datos**
 
-1. Navega al directorio:
+1. Abrir la aplicacion TablePlus
+   
+  <img width="10%" src="https://github.com/user-attachments/assets/612c4826-b370-4be0-b82a-3694718166fe">
 
-    ```bash
-    cd admin-pos-venta
-    ```
+3. configurar 
+<img width="50%" src="https://github.com/user-attachments/assets/8ed389b7-ed15-4dc7-838f-b1d11fbd8469">
 
-2. Instalar dependencias:
+  <img width="70%" src="https://github.com/user-attachments/assets/279e3e9a-10a7-4246-b659-5b5572b8ad24">
 
-    ```bash
-    npm install
-    ```
+4. Darle click a conentar
 
-3. Compilar y ejecutar el proyecto:
+  <img width="70%" src="https://github.com/user-attachments/assets/1b0bb6f5-11ad-48cd-84e9-b88481d12a1c">
 
-    ```bash
-    npm run dev
-    ```
 
-   - Para producción, usa `npm run build`.
 
-4. Ejecutar el servidor de desarrollo:
 
-    ```bash
-    npm run serve
-    ```
 
-   - El servidor estará en `http://localhost:8080`.
 
-## Notas
 
-- **Integración**: Asegúrate de que el frontend y el backend estén correctamente integrados.
-- **Compilación**: Usa Laravel Mix para gestionar la compilación de assets si es necesario.
+

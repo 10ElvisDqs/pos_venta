@@ -9,7 +9,7 @@ export default function ({ $axios }, inject) {
   })
 
   // Set baseURL to something different
-  // api.setBaseURL('http://localhost/curso/api/public/api/')
+  // api.setBaseURL('http://localhost/api/public/api/')
 
   // Inject to context as $api
   inject('printer', printer)

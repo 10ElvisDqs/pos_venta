@@ -10,26 +10,27 @@ class InventarioController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // return Articulo::with(['Marca', 'Medida', 'Categoria'])->where('estado', 1)->get();
-        $model = Articulo::where('estado', 1)->get();
+        $model=  Articulo::where('estado',1)->get();
         $list = [];
-        foreach ($model as $m){
-            $list [] = $this->kardex($m);
+        foreach($model as $m){
+            $list[] = $this->kardex($m);
         }
         return $list;
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function kardex(Articulo $articulo)
     {
         $articulo->marca = $articulo->Marca;
         $articulo->medida = $articulo->Medida;
         $articulo->categoria = $articulo->Categoria;
+        $articulo->image = $articulo->ArticuloImages()->get()->first();
+        if( $articulo->image!=null){
+            $articulo->image->url = $articulo->image->image->UrlImage();
+        }
         $articulo->inventarios = $articulo->Inventarios()->where('estado',1)->get();
         $articulo->ingresos = $articulo->inventarios->where('tipo',1)->sum('cantidad');
         $articulo->egresos = $articulo->inventarios->where('tipo',2)->sum('cantidad');
@@ -40,8 +41,12 @@ class InventarioController extends Controller
 
         return $articulo;
     }
-
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $inventario = new Inventario();
@@ -57,17 +62,21 @@ class InventarioController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\Inventario  $inventario
+     * @return \Illuminate\Http\Response
      */
- /*    public function show(Inventario $inventario)
+    public function show(Inventario $inventario)
     {
         //
-    } */
-    public function show(Articulo $articulo)
-    {
-        
     }
+
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Inventario  $inventario
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Inventario $inventario)
     {
@@ -76,11 +85,13 @@ class InventarioController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Inventario  $inventario
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Inventario $inventario)
     {
-        $inventario->estado=0;
+        $inventario->estado= 0;
         $inventario->save();
-
     }
 }

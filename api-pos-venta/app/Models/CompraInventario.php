@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CompraInventario extends Model
 {
     use HasFactory;
-    public function Inventario()
-    {
+    public function Inventario(){
         return $this->belongsTo(Inventario::class);
     }
-    public function Compra()
-    {
+    public function Compra(){
         return $this->belongsTo(Compra::class);
     }
 }
