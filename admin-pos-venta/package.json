@@ -16,7 +16,7 @@
     "jspdf-autotable": "^3.8.2",
     "nuxt": "^2.15.8",
     "postcss": "^8.4.39",
-    "socket.io-client": "^4.6.1",
+    "socket.io-client": "^4.7.5",
     "vue": "^2.7.10",
     "vue-loading-overlay": "3.0",
     "vue-server-renderer": "^2.7.10",

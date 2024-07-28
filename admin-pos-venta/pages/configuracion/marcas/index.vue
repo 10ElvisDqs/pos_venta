@@ -4,13 +4,7 @@
     <AdminTemplate :page="page" :modulo="modulo">
       <div slot="body">
         <div class="row justify-content-end mb-2">
-          <div class="col-auto">
-            <input type="date" v-model="startDate" class="form-control form-control-sm" />
-            <input type="date" v-model="endDate" class="form-control form-control-sm" />
-            <button @click="exportToPDF" class="btn btn-danger btn-sm">PDF</button>
-            <button @click="exportToExcel" class="btn btn-success btn-sm">Excel</button>
-            <button @click="printTable" class="btn btn-primary btn-sm">Imprimir</button>
-          </div>
+
           <div class="col-2">
             <nuxtLink :to="url_nuevo" class="btn btn-dark btn-sm w-100">
               <i class="fas fa-plus"></i> Agregar

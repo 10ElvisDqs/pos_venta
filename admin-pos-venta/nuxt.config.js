@@ -56,6 +56,12 @@ export default {
   build: {
   },
 
+  watchers: {
+    webpack: {
+      poll: true
+    }
+  },
+
   server: {
     port: 3000,
     host:'0.0.0.0'

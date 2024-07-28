@@ -81,17 +81,17 @@
                         id=""
                       />
                     </div>
-                    <div class="form-group col-12">
-                      <label for="">Impresora</label>
-                      <input
-                        type="text"
-                        name=""
-                        v-model="model.impresora"
-                        class="form-control"
-                        id=""
-                      />
-                    </div>
-                    <div class="form-group col-12">
+                      <!-- <div class="form-group col-12">
+                        <label for="">Impresora</label>
+                        <input
+                          type="text"
+                          name=""
+                          v-model="model.impresora"
+                          class="form-control"
+                          id=""
+                        />
+                      </div> -->
+                    <!-- <div class="form-group col-12">
                       <label for="">Impresora URL</label>
                       <input
                         type="text"
@@ -100,10 +100,10 @@
                         class="form-control"
                         id=""
                       />
-                    </div>
+                    </div> -->
                   </div>
                 </CrudCreate>
-                <button  v-if="list.length > 0" @click="ImprimirTest()" class="btn btn btn-dark w-100">Imprimir pagina de prueba</button>
+                <!-- <button  v-if="list.length > 0" @click="ImprimirTest()" class="btn btn btn-dark w-100">Imprimir pagina de prueba</button> -->
               </div>
             </div>
           </div>

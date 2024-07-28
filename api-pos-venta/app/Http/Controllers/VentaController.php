@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Venta;
 use App\Models\CajaVenta;
+use App\Models\Cliente;
 use App\Models\VentaInventario;
 use App\Models\Inventario;
 use App\Models\Sucursal;
@@ -21,6 +22,7 @@ class VentaController extends Controller
         $venta = Venta::where('estado',1)->get();
         $list = [];
         foreach($venta as $m){
+             $m->cliente =  Cliente::select('nombre', 'paterno', 'materno')->find($m->cliente );
 
             $list[] = $this->show($m);
         }
@@ -96,6 +98,7 @@ class VentaController extends Controller
     {
         $sucursal = Sucursal::all()->first();
         $venta = $this->show($venta);
+        $venta->cliente =  Cliente::select('nombre', 'paterno', 'materno')->find($venta->cliente );
         $venta->sucursal = $sucursal;
         $pdf = PDF::loadView('reports.venta', ["venta"=>$venta]);
         return $pdf->stream();
@@ -126,6 +129,6 @@ class VentaController extends Controller
         $venta->caja_venta = $venta->CajaVenta;
         $venta->caja_venta->estado = 0;
         $venta->caja_venta->save();
-        
+
     }
 }

@@ -13,7 +13,7 @@
                     <p class="text-sm mb-0">
                       Venta no. <b> {{model.id}}</b> de <b>{{model.fecha}} </b>
                     </p>
-  
+
                   </div>
                  <button
                         @click="$router.back()"
@@ -28,7 +28,7 @@
                 <div class="row">
                   <div class="col-12" v-for="m in model.venta_inventarios" >
                     <div class="d-flex">
-  
+
                       <div>
                         <h6 class="text-lg mb-0 mt-2">{{m.inventario.articulo.nombre}}</h6>
                         <p class="text-sm mb-3">
@@ -40,13 +40,13 @@
                       </div>
                     </div>
                   </div>
-  
+
                 </div>
                 <hr class="horizontal dark mt-4 mb-4" />
                 <div class="row">
-  
+
                   <div class="col-lg-8 col-md-6 col-12">
-  
+
                     <h6 class="mb-3 mt-4">Información</h6>
                     <ul class="list-group">
                       <li
@@ -57,17 +57,17 @@
                           <span class="mb-2 text-xs"
                             >Cliente:
                             <span class="text-dark font-weight-bold ms-2"
-                              >{{model.cliente}} {{ model.paterno }}</span
+                              >{{model.cliente}}</span
                             ></span
                           >
-  
+
                         </div>
                       </li>
                     </ul>
                   </div>
                   <div class="col-lg-4 col-12 ms-auto">
                     <!-- <h6 class="mb-3">Información</h6> -->
-  
+
                     <div class="d-flex justify-content-between mt-4">
                       <span class="mb-2 text-lg"> Total: </span>
                       <span class="text-dark text-lg ms-2 font-weight-bold"
@@ -84,7 +84,7 @@
       </AdminTemplate>
     </div>
   </template>
-  
+
   <script>
   export default {
     name: "IndexPage",
@@ -96,11 +96,11 @@
     data() {
       return {
         load: true,
-  
+
         model: {
          total:0,
          compra_inventarios:[]
-  
+
         },
         apiUrl: "ventas",
         page: "Ventas",
@@ -131,4 +131,3 @@
     },
   };
   </script>
-  
